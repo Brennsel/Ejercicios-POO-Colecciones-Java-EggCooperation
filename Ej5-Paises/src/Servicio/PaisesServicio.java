@@ -21,42 +21,49 @@ public class PaisesServicio {
     Scanner leer = new Scanner(System.in).useDelimiter("\n");
     HashSet<String> conjPaises = new HashSet<>();
 
-    public void crearPaises(){
+    public void crearPaises() {
 
         String pais;
         Integer opc;
         Boolean continuar = false, esIncorrecto;
 
         do {
-            do {
-                System.out.print("Ingrese el pais: ");
-                pais = leer.next();
+            System.out.print("Ingrese el pais: ");
+            pais = leer.next();
 
-                conjPaises.add(pais);
+            conjPaises.add(pais);
 
-                System.out.println("-----------------------------------------------------");
-                System.out.println("Desea continuar?");
-                System.out.println("1. SI");
-                System.out.println("2. NO");
-                System.out.println("-----------------------------------------------------");
-                opc = leer.nextInt();
-
-                if (opc == 1) {
-                    continuar = true;
-                    esIncorrecto = false;
-                } else if (opc == 2) {
-                    continuar = false;
-                    esIncorrecto = false;
-                } else {
-                    System.out.println("Ingreso incorrecto.");
-                    esIncorrecto = true;
-                }
-            } while (esIncorrecto);
-
-        } while (continuar);
+        } while (menuContinuar());
     }
 
-    public void mostrarPaises(){
+    public Boolean menuContinuar() {
+
+        Integer opc;
+        Boolean continuar, esIncorrecto;
+
+        do {
+            continuar = false;
+            esIncorrecto = false;
+
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Desea continuar ingresando?");
+            System.out.println("1. SI");
+            System.out.println("2. NO");
+            System.out.println("--------------------------------------------------------------");
+            opc = leer.nextInt();
+
+            if (opc == 1) {
+                continuar = true;
+            } else if (opc != 2) {
+                System.out.println("Ingreso incorrecto.");
+                esIncorrecto = true;
+            }
+        } while (esIncorrecto);
+
+        return continuar;
+    }
+
+    public void mostrarPaises() {
 
         System.out.println("-----------------------------------------------------");
         System.out.println("Conjunto de paises: ");
@@ -79,7 +86,7 @@ public class PaisesServicio {
         }
     }
 
-    public Boolean buscarPais(){
+    public Boolean buscarPais() {
 
         String pais;
         Boolean seEncontro = false;
@@ -89,8 +96,8 @@ public class PaisesServicio {
         System.out.print("Ingrese pais a buscar: ");
         pais = leer.next();
 
-        while(it.hasNext()){
-            if(it.next().equalsIgnoreCase(pais)){
+        while (it.hasNext()) {
+            if (it.next().equalsIgnoreCase(pais)) {
                 it.remove();
                 seEncontro = true;
             }

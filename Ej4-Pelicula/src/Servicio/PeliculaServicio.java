@@ -31,43 +31,48 @@ public class PeliculaServicio {
     public void crearPelicula() {
 
         String titulo, director;
-        Integer opc;
         Double duracion;
-        Boolean continuar = false, esIncorrecto;
 
         do {
-            do {
-                System.out.println("Datos de la pelicula");
-                System.out.print("Titulo: ");
-                titulo = leer.next();
-                System.out.print("Director: ");
-                director = leer.next();
-                System.out.print("Duracion: ");
-                duracion = leer.nextDouble();
+            System.out.println("Datos de la pelicula");
+            System.out.print("Titulo: ");
+            titulo = leer.next();
+            System.out.print("Director: ");
+            director = leer.next();
+            System.out.print("Duracion: ");
+            duracion = leer.nextDouble();
 
-                listaPeliculas.add(new Pelicula(titulo, director, duracion));
+            listaPeliculas.add(new Pelicula(titulo, director, duracion));
 
-                System.out.println("-----------------------------------------------------");
-                System.out.println("Desea continuar?");
-                System.out.println("1. SI");
-                System.out.println("2. NO");
-                System.out.println("-----------------------------------------------------");
-                opc = leer.nextInt();
+        } while (menuContinuar());
 
-                if (opc == 1) {
-                    continuar = true;
-                    esIncorrecto = false;
-                } else if (opc == 2) {
-                    continuar = false;
-                    esIncorrecto = false;
-                } else {
-                    System.out.println("Ingreso incorrecto.");
-                    esIncorrecto = true;
-                }
-            } while (esIncorrecto);
+    }
 
-        } while (continuar);
+    public Boolean menuContinuar() {
 
+        Integer opc;
+        Boolean continuar, esIncorrecto;
+
+        do {
+            continuar = false;
+            esIncorrecto = false;
+
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Desea continuar ingresando?");
+            System.out.println("1. SI");
+            System.out.println("2. NO");
+            System.out.println("--------------------------------------------------------------");
+            opc = leer.nextInt();
+
+            if (opc == 1) {
+                continuar = true;
+            } else if (opc != 2) {
+                System.out.println("Ingreso incorrecto.");
+                esIncorrecto = true;
+            }
+        } while (esIncorrecto);
+
+        return continuar;
     }
 
     public void mostrarPeliculas() {

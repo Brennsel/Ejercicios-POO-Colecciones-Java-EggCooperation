@@ -15,7 +15,6 @@ import java.util.Scanner;
 
 public class ProductoServicio {
 
-    //Producto prod = new Producto();
     HashMap<String, Double> mapProductos = new HashMap<>();
     Scanner leer = new Scanner(System.in).useDelimiter("\n");
 
@@ -109,8 +108,4 @@ public class ProductoServicio {
             System.out.println("El producto no se encuentra.");
         }
     }
-
-
-
-
 }

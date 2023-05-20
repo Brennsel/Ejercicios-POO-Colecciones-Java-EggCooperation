@@ -24,68 +24,71 @@ public class AlumnoServicio {
     public void crearAlumno() {
 
         String nombre;
-        Integer n1, n2, n3, opc;
-        Boolean continuar = false, esIncorrecto;
+        Integer n1, n2, n3;
         ArrayList<Integer> notas = new ArrayList<>();
 
         do {
-            do {
+            System.out.print("Ingrese nombre del alumno: ");
+            nombre = leer.next();
 
-                System.out.print("Ingrese nombre del alumno: ");
-                nombre = leer.next();
+            System.out.println("Ingrese las notas");
+            System.out.print("Nota 1: ");
+            n1 = leer.nextInt();
+            System.out.print("Nota 2: ");
+            n2 = leer.nextInt();
+            System.out.print("Nota 3: ");
+            n3 = leer.nextInt();
 
-                System.out.println("Ingrese las notas");
-                System.out.print("Nota 1: ");
-                n1 = leer.nextInt();
-                System.out.print("Nota 2: ");
-                n2 = leer.nextInt();
-                System.out.print("Nota 3: ");
-                n3 = leer.nextInt();
+            notas.add(n1);
+            notas.add(n2);
+            notas.add(n3);
 
-                notas.add(n1);
-                notas.add(n2);
-                notas.add(n3);
+            listaAlumnos.add(new Alumno(nombre, notas));
 
-                listaAlumnos.add(new Alumno(nombre, notas));
-
-                System.out.println("------------------------------");
-                System.out.println("Desea continuar?");
-                System.out.println("1. SI");
-                System.out.println("2. NO");
-                System.out.println("------------------------------");
-                opc = leer.nextInt();
-
-                if (opc == 1) {
-                    continuar = true;
-                    esIncorrecto = false;
-                } else if (opc == 2) {
-                    continuar = false;
-                    esIncorrecto = false;
-                } else {
-                    System.out.println("Ingreso incorrecto.");
-                    esIncorrecto = true;
-                }
-            } while (esIncorrecto);
-
-        } while (continuar);
-
+        } while (menuContinuar());
     }
 
+    public Boolean menuContinuar() {
 
-    public Double notaFinal(){
+        Integer opc;
+        Boolean continuar, esIncorrecto;
+
+        do {
+            continuar = false;
+            esIncorrecto = false;
+
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Desea continuar ingresando?");
+            System.out.println("1. SI");
+            System.out.println("2. NO");
+            System.out.println("--------------------------------------------------------------");
+            opc = leer.nextInt();
+
+            if (opc == 1) {
+                continuar = true;
+            } else if (opc != 2) {
+                System.out.println("Ingreso incorrecto.");
+                esIncorrecto = true;
+            }
+        } while (esIncorrecto);
+
+        return continuar;
+    }
+
+    public Double notaFinal() {
 
         String nombre;
-        Double suma= (double) 0;
+        Double suma = (double) 0;
 
         System.out.print("Ingrese el nombre del alumno del que desea ver su promedio: ");
         nombre = leer.next();
 
-        for(Alumno alumnoActual: listaAlumnos){
-            if(alumnoActual.getNombre().equalsIgnoreCase(nombre)){
-                for(Integer nota : alumnoActual.getNotas()){
-                    suma+=nota;
+        for (Alumno alumnoActual : listaAlumnos) {
+            if (alumnoActual.getNombre().equalsIgnoreCase(nombre)) {
+                for (Integer nota : alumnoActual.getNotas()) {
+                    suma += nota;
                 }
-                return (double) (suma/alumnoActual.getNotas().size());
+                return (double) (suma / alumnoActual.getNotas().size());
             }
         }
 
